@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2730245017189492093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4446874343986219368}
+  - component: {fileID: 8753817402342538003}
+  m_Layer: 0
+  m_Name: world
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4446874343986219368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730245017189492093}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8753817402342538003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730245017189492093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54918786bc4c8ab4cbc76e173b998f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::voxelworld
+  _planetradius: 50000
+  _surfaceplaneheight: 0
+  _minterrainheight: -100
+  _maxterrainheight: 350
+  _movetoplanetspawn: 1
+  _spawnlatitude: 0
+  _spawnlongitude: 0
+  _spawnheight: 0.15
+  _seed: 12345
+  _terrainfrequency: 0.00012
+  _terrainamplitude: 180
+  _terrainoctaves: 4
+  _terrainflatness: 12
+  _lowlandfrequency: 0.000055
+  _lowlandthreshold: 0.6
+  _lowlandstrength: 0.8
+  _generateriverdepressions: 1
+  _riverfrequency: 0.00015
+  _riverwidth: 0.018
+  _riverdepth: 25
+  _dirtheightthreshold: -40
+  _textureworldsize: 8
+  _patchresolution: 17
+  _maxlod: 11
+  _lodfactor: 1.15
+  _colliderdistance: 700
+  _colliderstartlod: 9
+  _camerafarclip: 300000
+  _player: {fileID: 0}
+  dirtmaterial: {fileID: 2100000, guid: 16351b51919bb5b4f815048a7c3ba0bb, type: 2}
+  grassmaterial: {fileID: 2100000, guid: ba38bde0b11d609419766288ef6ec808, type: 2}
+  sandmaterial: {fileID: 2100000, guid: 6dbb3e30a3330954d8767092b3252e32, type: 2}
