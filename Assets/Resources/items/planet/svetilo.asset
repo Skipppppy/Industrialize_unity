@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976fbaa9b3eff764cbe4ee0396dbd699, type: 3}
+  m_Name: svetilo
+  m_EditorClassIdentifier: Assembly-CSharp::celestialbodydata
+  id: 0
+  parentid: 0
+  type: 0
+  prefab: {fileID: 237029474019159095, guid: b9acf321dd4bb52488bfcf903233fd47, type: 3}
+  planetdata: {fileID: 11400000, guid: 9b6711c6d720c8742b120387f33c7dbf, type: 2}
+  orbitradius: 0
+  orbitspeed: 0.25
+  orbitangle: 0
+  orbitinclination: 0
+  orbitaxis: {x: 0, y: 1, z: 0}
+  rotationaxis: {x: 0, y: 1, z: 0}
+  rotationspeed: 0.2

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701469660e4099c489ca433d3296e781, type: 3}
+  m_Name: life_planet_1
+  m_EditorClassIdentifier: Assembly-CSharp::bigplanetdata
+  seed: 12345
+  radius: 2500
+  terrainMin: -25
+  terrainMax: 65
+  terrainFrequency: 0.00055
+  terrainOctaves: 4
+  terrainLacunarity: 2
+  terrainPersistence: 0.5
+  detailFrequency: 0.0025
+  detailAmplitude: 7
+  chunksPerFace: 10
+  chunkResolution: 25
+  generateColliders: 1
+  terrainMaterial: {fileID: 2100000, guid: ba38bde0b11d609419766288ef6ec808, type: 2}
+  destructionRadius: 30
+  destructionDepth: 15
+  spaceTriggerHeight: 500
+  spaceSceneName: space
+  spaceSpawnObjectName: life_planet
+  gravity: 25

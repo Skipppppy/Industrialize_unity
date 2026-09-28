@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/scene/tutorial/tutorial.unity
     guid: bb0137f9c68227a428bfee0e1d64fda3
   - enabled: 1
-    path: Assets/scene/main game/main_game.unity
+    path: Assets/scene/main game/in_game/life_planet_1.unity
     guid: 9b58b22c169ec8941bba8002cce91436
   - enabled: 0
     path: Assets/scene/beast_mode/beast_mode.unity

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976fbaa9b3eff764cbe4ee0396dbd699, type: 3}
+  m_Name: life_planet
+  m_EditorClassIdentifier: Assembly-CSharp::celestialbodydata
+  id: 1
+  parentid: 1
+  type: 1
+  prefab: {fileID: 8729145671841025952, guid: ec84db645fe80e7478b34bab094d39ae, type: 3}
+  planetdata: {fileID: 11400000, guid: 3e8a1ad14ad1ddb46815fa2f20a7e4a6, type: 2}
+  orbitradius: 100
+  orbitspeed: 0.4
+  orbitangle: 0
+  orbitinclination: 0
+  orbitaxis: {x: 0, y: 1, z: 0}
+  rotationaxis: {x: 0, y: 1, z: 0}
+  rotationspeed: 0.4

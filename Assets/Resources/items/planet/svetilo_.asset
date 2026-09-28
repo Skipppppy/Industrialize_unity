@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701469660e4099c489ca433d3296e781, type: 3}
+  m_Name: svetilo_
+  m_EditorClassIdentifier: Assembly-CSharp::planetdata
+  seed: 12345
+  radius: 1000
+  minimumterrain: -100
+  maximumterrain: 300
+  terrainfrequency: 0.00035
+  terrainamplitude: 180
+  terrainoctaves: 4
+  terrainpersistence: 0.5
+  biomefrequency: 0.00018
+  moisturefrequency: 0.00012
+  snowheight: 240
+  desertmoisture: 0.25
+  swampmoisture: 0.72
+  surfacegravity: 9.81
+  gravityrange: 30000
+  chunksPerFace: 8
+  chunkResolution: 17
+  materials: []

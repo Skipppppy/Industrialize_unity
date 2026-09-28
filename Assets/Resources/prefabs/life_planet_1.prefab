@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &765271944313491487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7302230953021691413}
+  - component: {fileID: 3575394873779997262}
+  - component: {fileID: 1219007510635111686}
+  m_Layer: 0
+  m_Name: life_planet_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7302230953021691413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765271944313491487}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 27474.553, y: 147260.06, z: -690314.56}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3575394873779997262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765271944313491487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7be7d34cdc8c894299a8ba60929ea08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::bigplanetlogic
+  _data: {fileID: 11400000, guid: 85d704fa66503854bb67b4203b7a4f6f, type: 2}
+  _view: {fileID: 1219007510635111686}
+  _player: {fileID: 0}
+--- !u!114 &1219007510635111686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765271944313491487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a126c19befc27e48b19d19e54db0176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::bigplanetview
+  _data: {fileID: 11400000, guid: 85d704fa66503854bb67b4203b7a4f6f, type: 2}
+  _logic: {fileID: 3575394873779997262}
