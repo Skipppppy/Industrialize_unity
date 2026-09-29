@@ -9,13 +9,12 @@ public class pointterrainchunk : MonoBehaviour
     private MeshFilter _meshfilter;
     private MeshRenderer _meshrenderer;
     private MeshCollider _meshcollider;
-    private int _startx;
-    private int _startz;
-    private int _cellsx;
-    private int _cellsz;
-    private int _worldwidth;
-    private int _worldlength;
-    private float _pointsize;
+    private int _face;
+    private int _chunkx;
+    private int _chunkz;
+    private int _chunksize;
+    private int _chunksperface;
+    private float _planetradius;
     private float _baseheight;
     private float _height;
     private float _noisescale;
@@ -25,179 +24,183 @@ public class pointterrainchunk : MonoBehaviour
     private float _seedz;
     private bool _showpoints;
     private bool _showchunk;
+    private bool _colliderenabled;
     private float _pointgizmosize;
-
-    public void initialize(int _startx, int _startz, int _cellsx, int _cellsz, int _worldwidth, int _worldlength, float _pointsize, float _baseheight, float _height, float _noisescale, float _flatness, float _textureworldsize, float _seedx, float _seedz, Material _grassmaterial)
+    private int _pointgizmestep;
+    private int _maxgizmopoints;
+    public void initialize(int _face, int _chunkx, int _chunkz, int _chunksize, int _chunksperface, float _planetradius, float _baseheight, float _height, float _noisescale, float _flatness, float _textureworldsize, int _seed, Material _grassmaterial)
     {
-        this._startx = _startx;
-        this._startz = _startz;
-        this._cellsx = _cellsx;
-        this._cellsz = _cellsz;
-        this._worldwidth = _worldwidth;
-        this._worldlength = _worldlength;
-        this._pointsize = _pointsize;
+        this._face = _face;
+        this._chunkx = _chunkx;
+        this._chunkz = _chunkz;
+        this._chunksize = _chunksize;
+        this._chunksperface = _chunksperface;
+        this._planetradius = _planetradius;
         this._baseheight = _baseheight;
         this._height = _height;
         this._noisescale = _noisescale;
         this._flatness = _flatness;
         this._textureworldsize = _textureworldsize;
-        this._seedx = _seedx;
-        this._seedz = _seedz;
+        this._seedx = _seed * 0.12345f;
+        this._seedz = _seed * 0.67891f;
         _meshfilter = GetComponent<MeshFilter>();
         _meshrenderer = GetComponent<MeshRenderer>();
         _meshcollider = GetComponent<MeshCollider>();
         _meshrenderer.sharedMaterial = _grassmaterial;
-        transform.position = new Vector3(_startx * _pointsize, 0f, _startz * _pointsize);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
         createmesh();
     }
-
-    public void setdebug(bool _showpoints, bool _showchunk, float _pointgizmosize)
+    public void setdebug(bool _showpoints, bool _showchunk, float _pointgizmosize, int _pointgizmestep, int _maxgizmopoints)
     {
         this._showpoints = _showpoints;
         this._showchunk = _showchunk;
         this._pointgizmosize = _pointgizmosize;
+        this._pointgizmestep = Mathf.Max(1, _pointgizmestep);
+        this._maxgizmopoints = Mathf.Max(1, _maxgizmopoints);
     }
-
+    public void setcolliderenabled(bool _enabled)
+    {
+        if (_meshcollider == null) return;
+        if (_colliderenabled == _enabled) return;
+        _colliderenabled = _enabled;
+        _meshcollider.enabled = _enabled;
+        if (_enabled && _mesh != null)
+        {
+            _meshcollider.sharedMesh = _mesh;
+        }
+        else
+        {
+            _meshcollider.sharedMesh = null;
+        }
+    }
     private void createmesh()
     {
-        int _vertexwidth = _cellsx + 1;
-        int _vertexlength = _cellsz + 1;
+        int _vertexwidth = _chunksize + 1;
+        int _vertexlength = _chunksize + 1;
+        int _totalcells = _chunksperface * _chunksize;
         _points = new terrainpoint[_vertexwidth, _vertexlength];
-
         Vector3[] _vertices = new Vector3[_vertexwidth * _vertexlength];
         Vector2[] _uv = new Vector2[_vertices.Length];
-        Vector3[] _normals = new Vector3[_vertices.Length];
-        int[] _triangles = new int[_cellsx * _cellsz * 6];
-
+        int[] _triangles = new int[_chunksize * _chunksize * 6];
         int _vertexindex = 0;
-
         for (int _x = 0; _x < _vertexwidth; _x++)
         {
             for (int _z = 0; _z < _vertexlength; _z++)
             {
-                int _worldx = _startx + _x;
-                int _worldz = _startz + _z;
-
-                float _heightvalue = getheight(_worldx, _worldz);
-
-                Vector3 _position = new Vector3(
-                _x * _pointsize,
-                _heightvalue,
-                _z * _pointsize
-                );
-
-                _points[_x, _z] = new terrainpoint(
-                _position,
-                _heightvalue,
-                0
-                );
-
+                float _u = -1f + ((_chunkx * _chunksize + _x) / (float)_totalcells) * 2f;
+                float _v = -1f + ((_chunkz * _chunksize + _z) / (float)_totalcells) * 2f;
+                Vector3 _direction = getdirection(_face, _u, _v);
+                float _heightvalue = getheight(_direction);
+                Vector3 _position = _direction * (_planetradius + _heightvalue);
+                _points[_x, _z] = new terrainpoint(_position, _heightvalue, 0);
                 _vertices[_vertexindex] = _position;
-
-                _uv[_vertexindex] = new Vector2(
-                _worldx * _pointsize / _textureworldsize,
-                _worldz * _pointsize / _textureworldsize
-                );
-
-                float _left = getheight(_worldx - 1, _worldz);
-                float _right = getheight(_worldx + 1, _worldz);
-                float _down = getheight(_worldx, _worldz - 1);
-                float _up = getheight(_worldx, _worldz + 1);
-
-                _normals[_vertexindex] = new Vector3(
-                _left - _right,
-                2f * _pointsize,
-                _down - _up
-                ).normalized;
-
+                float _texscale = 2f * _planetradius / Mathf.Max(_textureworldsize, 0.001f);
+                _uv[_vertexindex] = new Vector2((_u + 1f) * 0.5f * _texscale, (_v + 1f) * 0.5f * _texscale);
                 _vertexindex++;
             }
         }
-
         int _triangleindex = 0;
-
-        for (int _x = 0; _x < _cellsx; _x++)
+        for (int _x = 0; _x < _chunksize; _x++)
         {
-            for (int _z = 0; _z < _cellsz; _z++)
+            for (int _z = 0; _z < _chunksize; _z++)
             {
                 int _a = _x * _vertexlength + _z;
                 int _b = (_x + 1) * _vertexlength + _z;
                 int _c = _x * _vertexlength + _z + 1;
                 int _d = (_x + 1) * _vertexlength + _z + 1;
-
                 _triangles[_triangleindex++] = _a;
                 _triangles[_triangleindex++] = _c;
                 _triangles[_triangleindex++] = _d;
-
                 _triangles[_triangleindex++] = _a;
                 _triangles[_triangleindex++] = _d;
                 _triangles[_triangleindex++] = _b;
             }
         }
-
+        for (int _i = 0; _i < _triangles.Length; _i += 3)
+        {
+            Vector3 _a = _vertices[_triangles[_i]];
+            Vector3 _b = _vertices[_triangles[_i + 1]];
+            Vector3 _c = _vertices[_triangles[_i + 2]];
+            Vector3 _normal = Vector3.Cross(_b - _a, _c - _a);
+            Vector3 _center = (_a + _b + _c).normalized;
+            if (Vector3.Dot(_normal, _center) < 0f)
+            {
+                int _temp = _triangles[_i + 1];
+                _triangles[_i + 1] = _triangles[_i + 2];
+                _triangles[_i + 2] = _temp;
+            }
+        }
         _mesh = new Mesh();
         _mesh.name = "pointterrainchunkmesh";
         _mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
         _mesh.vertices = _vertices;
         _mesh.triangles = _triangles;
         _mesh.uv = _uv;
-        _mesh.normals = _normals;
+        _mesh.RecalculateNormals();
         _mesh.RecalculateBounds();
-
         _meshfilter.sharedMesh = _mesh;
-
         _meshcollider.sharedMesh = null;
-        _meshcollider.sharedMesh = _mesh;
+        if (_colliderenabled)
+        {
+            _meshcollider.sharedMesh = _mesh;
+        }
     }
-
-    private float getheight(int _x, int _z)
+    private Vector3 getdirection(int _face, float _u, float _v)
     {
-        float _noise = Mathf.PerlinNoise(
-        _seedx + _x * _noisescale,
-        _seedz + _z * _noisescale
-        );
-
+        Vector3 _cube;
+        switch (_face)
+        {
+            case 0: _cube = new Vector3(1f, _v, -_u); break;
+            case 1: _cube = new Vector3(-1f, _v, _u); break;
+            case 2: _cube = new Vector3(_u, 1f, -_v); break;
+            case 3: _cube = new Vector3(_u, -1f, _v); break;
+            case 4: _cube = new Vector3(_u, _v, 1f); break;
+            default: _cube = new Vector3(-_u, _v, -1f); break;
+        }
+        return _cube.normalized;
+    }
+    private float getheight(Vector3 _direction)
+    {
+        float _noise1 = Mathf.PerlinNoise((_direction.x + 2f) * _noisescale + _seedx, (_direction.y + 2f) * _noisescale + _seedz);
+        float _noise2 = Mathf.PerlinNoise((_direction.y + 2f) * _noisescale + _seedz * 0.71f, (_direction.z + 2f) * _noisescale + _seedx * 0.53f);
+        float _noise3 = Mathf.PerlinNoise((_direction.z + 2f) * _noisescale + _seedx * 0.37f, (_direction.x + 2f) * _noisescale + _seedz * 0.83f);
+        float _noise = (_noise1 + _noise2 + _noise3) / 3f;
         _noise = Mathf.SmoothStep(0f, 1f, _noise);
         _noise = Mathf.Lerp(_noise, 0.5f, _flatness);
-
         return _baseheight + (_noise - 0.5f) * _height;
     }
-
     private void OnDrawGizmos()
     {
-        if (_showchunk)
+        if (!_showchunk || _mesh == null) return;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(_mesh.bounds.center, _mesh.bounds.size);
+    }
+    private void OnDrawGizmosSelected()
+    {
+        if (!_showpoints || _points == null) return;
+        Gizmos.color = Color.red;
+        int _width = _points.GetLength(0);
+        int _length = _points.GetLength(1);
+        int _step = Mathf.Max(1, _pointgizmestep);
+        int _countx = Mathf.CeilToInt(_width / (float)_step);
+        int _countz = Mathf.CeilToInt(_length / (float)_step);
+        while (_countx * _countz > _maxgizmopoints)
         {
-            Gizmos.color = Color.yellow;
-
-            Vector3 _center = new Vector3(
-            _cellsx * _pointsize * 0.5f,
-            _baseheight,
-            _cellsz * _pointsize * 0.5f
-            );
-
-            Vector3 _size = new Vector3(
-            _cellsx * _pointsize,
-            Mathf.Max(_height, 0.1f),
-            _cellsz * _pointsize
-            );
-
-            Gizmos.DrawWireCube(_center, _size);
+            _step++;
+            _countx = Mathf.CeilToInt(_width / (float)_step);
+            _countz = Mathf.CeilToInt(_length / (float)_step);
         }
-
-        if (_showpoints && _points != null)
+        int _drawn = 0;
+        for (int _x = 0; _x < _width; _x += _step)
         {
-            Gizmos.color = Color.red;
-
-            for (int _x = 0; _x < _points.GetLength(0); _x++)
+            for (int _z = 0; _z < _length; _z += _step)
             {
-                for (int _z = 0; _z < _points.GetLength(1); _z++)
-                {
-                    Gizmos.DrawSphere(
-                    _points[_x, _z].position,
-                    _pointgizmosize
-                    );
-                }
+                if (_drawn >= _maxgizmopoints) break;
+                Gizmos.DrawSphere(_points[_x, _z].position, _pointgizmosize);
+                _drawn++;
             }
+            if (_drawn >= _maxgizmopoints) break;
         }
     }
 }

@@ -96,6 +96,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a707e71a152ab9a40b4dd6d61e8d627a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1035518077982929987}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a707e71a152ab9a40b4dd6d61e8d627a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2875540449976572793}
   m_SourcePrefab: {fileID: 100100000, guid: a707e71a152ab9a40b4dd6d61e8d627a, type: 3}
 --- !u!1 &5478042886656893483 stripped
 GameObject:
@@ -138,7 +141,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -185,3 +188,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.3, z: 0.65}
   m_Center: {x: 0, y: -0.7, z: -0.05}
+--- !u!114 &2875540449976572793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5478042886656893483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a18041e15041ecf44bd0228c757d1cb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::sphericalgravitybody
+  _planet: {fileID: 8084392173960289276, guid: 779035a4babe7474cb9fa62b7293373a, type: 3}
+  _groundmask:
+    serializedVersion: 2
+    m_Bits: 8
+  _zerogravity: 0
+  _grounddamping: 1
