@@ -391,4 +391,55 @@ public class EasyInv : MonoBehaviour
         if (world != null)
             world.item = item;
     }
+    public int GetTotalItemAmount(int _itemid)
+    {
+        int _amount = 0;
+        for (int _i = 0; _i < hands.Length; _i++)
+        {
+            if (hands[_i] == null || hands[_i].definition == null) continue;
+            if (hands[_i].definition.id != _itemid) continue;
+            _amount += hands[_i].amount;
+        }
+        for (int _i = 0; _i < inventoryItems.Length; _i++)
+        {
+            if (inventoryItems[_i] == null || inventoryItems[_i].definition == null) continue;
+            if (inventoryItems[_i].definition.id != _itemid) continue;
+            _amount += inventoryItems[_i].amount;
+        }
+        return _amount;
+    }
+    public bool RemoveItemAmount(int _itemid, int _amounttoremove)
+    {
+        if (_amounttoremove <= 0) return true;
+        if (GetTotalItemAmount(_itemid) < _amounttoremove) return false;
+        int _remaining = _amounttoremove;
+        for (int _i = 0; _i < hands.Length; _i++)
+        {
+            if (_remaining <= 0) break;
+            itemz _item = hands[_i];
+            if (_item == null || _item.definition == null || _item.definition.id != _itemid) continue;
+            int _remove = Mathf.Min(_item.amount, _remaining);
+            _item.amount -= _remove;
+            _remaining -= _remove;
+            if (_item.amount <= 0)
+            {
+                hands[_i] = null;
+            }
+        }
+        for (int _i = 0; _i < inventoryItems.Length; _i++)
+        {
+            if (_remaining <= 0) break;
+            itemz _item = inventoryItems[_i];
+            if (_item == null || _item.definition == null || _item.definition.id != _itemid) continue;
+            int _remove = Mathf.Min(_item.amount, _remaining);
+            _item.amount -= _remove;
+            _remaining -= _remove;
+            if (_item.amount <= 0)
+            {
+                inventoryItems[_i] = null;
+            }
+        }
+        Refresh();
+        return _remaining <= 0;
+    }
 }
