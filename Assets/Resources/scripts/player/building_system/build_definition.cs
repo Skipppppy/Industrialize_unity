@@ -6,7 +6,7 @@ public class buildingdefinition : ScriptableObject
     public string _name;
     [TextArea] public string _description;
     public Sprite _icon;
-    public string _category;
+    public buildingcategory _category;
     public GameObject _prefab;
     public Vector3 _size = Vector3.one;
     public float _buildtime = 3f;
