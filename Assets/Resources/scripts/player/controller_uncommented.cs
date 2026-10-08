@@ -155,29 +155,13 @@ public class PlayerController : MonoBehaviour
     }
     private void Rotate()
     {
-        if (IsUIMode())
-        {
-            return;
-        }
         Vector2 _look = _lookAction.ReadValue<Vector2>();
-        float _currentsensitivity =
-        _buildingUIMode
-        ? _buildingUISensitivity
-        : _sensitivity;
+        float _currentsensitivity = (IsUIMode() || _buildingUIMode) ? _buildingUISensitivity : _sensitivity;
         Vector3 _up = GetPlanetUp();
-        Quaternion _yawrotation = Quaternion.AngleAxis(
-        _look.x * _currentsensitivity,
-        _up
-        );
-        transform.rotation =
-        _yawrotation *
-        transform.rotation;
+        Quaternion _yawrotation = Quaternion.AngleAxis(_look.x * _currentsensitivity, _up);
+        transform.rotation = _yawrotation * transform.rotation;
         rotationX -= _look.y * _currentsensitivity;
-        rotationX = Mathf.Clamp(
-        rotationX,
-        -80f,
-        80f
-        );
+        rotationX = Mathf.Clamp(rotationX, -80f, 80f);
     }
     private void Move()
     {
@@ -332,22 +316,9 @@ public class PlayerController : MonoBehaviour
     }
     private void CameraSway()
     {
-        Vector2 look =
-        _lookAction.ReadValue<Vector2>();
-        float targetRoll =
-        Mathf.Clamp(
-        -look.x *
-        0.15f,
-        -1.2f,
-        1.2f
-        );
-        currentRoll =
-        Mathf.Lerp(
-        currentRoll,
-        targetRoll,
-        12f *
-        Time.deltaTime
-        );
+        Vector2 _look = _lookAction.ReadValue<Vector2>();
+        float _targetRoll = Mathf.Clamp(-_look.x * 0.15f, -1.2f, 1.2f);
+        currentRoll = Mathf.Lerp(currentRoll, _targetRoll, 12f * Time.deltaTime);
     }
     private void HeadBob()
     {

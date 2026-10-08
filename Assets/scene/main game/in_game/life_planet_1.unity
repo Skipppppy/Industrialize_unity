@@ -8282,6 +8282,7 @@ GameObject:
   - component: {fileID: 1608821790}
   - component: {fileID: 1608821792}
   - component: {fileID: 1608821791}
+  - component: {fileID: 1608821793}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -8346,6 +8347,20 @@ MonoBehaviour:
   m_Spacing: {x: 5, y: 5}
   m_Constraint: 1
   m_ConstraintCount: 3
+--- !u!114 &1608821793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608821789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RectMask2D
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1635988840
 GameObject:
   m_ObjectHideFlags: 0
@@ -10182,7 +10197,6 @@ GameObject:
   - component: {fileID: 1947519911}
   - component: {fileID: 1947519914}
   - component: {fileID: 1947519913}
-  - component: {fileID: 1947519912}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -10210,19 +10224,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &1947519912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1947519910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
-  m_ShowMaskGraphic: 0
 --- !u!114 &1947519913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11764,63 +11765,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::slotindex
   inventoryUI: {fileID: 1130029313}
   slotIndex: 2
---- !u!1001 &2596575760803745370
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 12621315067327301, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 954.8279
-      objectReference: {fileID: 0}
-    - target: {fileID: 12621315067327301, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 525.03845
-      objectReference: {fileID: 0}
-    - target: {fileID: 12621315067327301, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -749.7523
-      objectReference: {fileID: 0}
-    - target: {fileID: 12621315067327301, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.99965894
-      objectReference: {fileID: 0}
-    - target: {fileID: 12621315067327301, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.021295542
-      objectReference: {fileID: 0}
-    - target: {fileID: 12621315067327301, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.015089306
-      objectReference: {fileID: 0}
-    - target: {fileID: 12621315067327301, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.0009425103
-      objectReference: {fileID: 0}
-    - target: {fileID: 12621315067327301, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 12621315067327301, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 12621315067327301, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5006913858482734929, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
-      propertyPath: m_Name
-      value: camera_render_texture
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 93c5c3cd7645eff439e72b1ec47d4b5f, type: 3}
 --- !u!1001 &3081123528028113768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12085,6 +12029,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3363844712238688062, guid: cd26d2cc6c62b0542a0209e840481eb6, type: 3}
+      propertyPath: field of view
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 6639036323053877116, guid: cd26d2cc6c62b0542a0209e840481eb6, type: 3}
       propertyPath: m_Name
       value: Player
@@ -12304,7 +12252,7 @@ MonoBehaviour:
   _inventory: {fileID: 3241015018494407814}
   _playerinput: {fileID: 3241015018494407813}
   _cursorlogic: {fileID: 1302866605}
-  _playercontroller: {fileID: 0}
+  _playercontroller: {fileID: 3241015018494407820}
   _camera: {fileID: 3241015018494407812}
   _planet: {fileID: 3081123528028113770}
   _buildingplanid: 10
@@ -12323,16 +12271,26 @@ MonoBehaviour:
     m_Bits: 8
   _placementdistance: 8
   _builddistance: 4
-  _resourcecheckradius: 3
   _maxslopeangle: 8
   _maxheightdifference: 0.2
   _rayheight: 4
   _rotation15: 15
   _rotation1: 1
-  _ghostmaterial: {fileID: 2100000, guid: 8dacbe9fe19f36549abf68d6fd0ed81c, type: 2}
-  _ghostcolor: {r: 0.1, g: 0.45, b: 1, a: 0.35}
+  _bluecolor: {r: 0.1, g: 0.45, b: 1, a: 0.45}
   _validcolor: {r: 0.1, g: 1, b: 0.2, a: 0.45}
   _invalidcolor: {r: 1, g: 0.1, b: 0.1, a: 0.45}
+  _ghostmaterial: {fileID: 2100000, guid: 8dacbe9fe19f36549abf68d6fd0ed81c, type: 2}
+--- !u!114 &3241015018494407820 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8316747841671559159, guid: cd26d2cc6c62b0542a0209e840481eb6, type: 3}
+  m_PrefabInstance: {fileID: 3241015018494407811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3241015018494407815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 825a9d9ba41603b489dd5badf20adc0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -12344,4 +12302,3 @@ SceneRoots:
   - {fileID: 3241015018494407811}
   - {fileID: 1635988843}
   - {fileID: 3081123528028113768}
-  - {fileID: 2596575760803745370}

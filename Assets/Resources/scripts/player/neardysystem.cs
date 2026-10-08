@@ -207,7 +207,7 @@ public class neardysystem : MonoBehaviour
         if (item == null || item.definition == null)
             return;
 
-        itemworld draggedWorld = world;
+        draggedWorld = world;
 
         draggedPosition = world.transform.position;
         draggedRotation = world.transform.rotation;
@@ -451,6 +451,76 @@ public class neardysystem : MonoBehaviour
         {
             RemoveItem(world);
         }
+    }
+
+    public int getnearbyitemamount(int _itemid)
+    {
+        int _amount = 0;
+        for (int _i = nearbyItems.Count - 1; _i >= 0; _i--)
+        {
+            itemworld _world = nearbyItems[_i];
+            if (_world == null)
+                continue;
+            if (_world.item != null && _world.item.definition != null)
+            {
+                if (_world.item.definition.id != _itemid)
+                    continue;
+                _amount += _world.item.amount;
+                continue;
+            }
+            if (_world.definition == null)
+                continue;
+            if (_world.definition.id != _itemid)
+                continue;
+            _amount++;
+        }
+        return _amount;
+    }
+
+    public bool removenearbyitemamount(int _itemid, int _amounttoremove)
+    {
+        if (_amounttoremove <= 0)
+            return true;
+        if (getnearbyitemamount(_itemid) < _amounttoremove)
+            return false;
+        int _remaining = _amounttoremove;
+        for (int _i = nearbyItems.Count - 1; _i >= 0 && _remaining > 0; _i--)
+        {
+            itemworld _world = nearbyItems[_i];
+            if (_world == null)
+                continue;
+            int _worldamount;
+            if (_world.item != null && _world.item.definition != null)
+            {
+                if (_world.item.definition.id != _itemid)
+                    continue;
+                _worldamount = _world.item.amount;
+            }
+            else
+            {
+                if (_world.definition == null || _world.definition.id != _itemid)
+                    continue;
+                _worldamount = 1;
+            }
+            int _remove = Mathf.Min(_worldamount, _remaining);
+            if (_world.item != null && _world.item.definition != null)
+            {
+                _world.item.amount -= _remove;
+            }
+            _remaining -= _remove;
+            if (_world.item == null || _world.item.amount <= 0)
+            {
+                RemoveItem(_world);
+                if (_world != null)
+                    Destroy(_world.gameObject);
+            }
+        }
+        return _remaining <= 0;
+    }
+
+    public float getradius()
+    {
+        return radius;
     }
 
     private void OnDrawGizmosSelected()

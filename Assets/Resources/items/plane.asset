@@ -17,7 +17,7 @@ MonoBehaviour:
   itemName: "\u041F\u043B\u0430\u043D \u0441\u0442\u0440\u043E\u0439\u043A\u0438"
   itemDescription: "\u041D\u0443\u0436\u043D\u043E \u0434\u043B\u044F \u0441\u0442\u0440\u043E\u0438\u0442\u0435\u043B\u044C\u0441\u0442\u0432\u0430"
   icon: {fileID: 21300000, guid: 3bfba2a3682ae11419d8477963a44ead, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 5677880091578027171, guid: 07e3cc7cf5eac9a438bab57c50692676, type: 3}
   weight: 0
   maxStack: 0
   size: {x: 0, y: 0}

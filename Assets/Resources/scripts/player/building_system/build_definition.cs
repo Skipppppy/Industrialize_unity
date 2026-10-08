@@ -1,4 +1,5 @@
 using UnityEngine;
+
 [CreateAssetMenu(fileName = "building_", menuName = "Building/Building Definition")]
 public class buildingdefinition : ScriptableObject
 {

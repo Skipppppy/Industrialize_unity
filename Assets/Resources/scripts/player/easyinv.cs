@@ -149,6 +149,23 @@ public class EasyInv : MonoBehaviour
         hands[handIndex] = item;
         Refresh();
     }
+
+    public bool SwapInventoryItemWithHand(int inventorySlot, int handIndex, itemz item)
+    {
+        if (item == null || item.definition == null)
+            return false;
+        if (inventorySlot < 0 || inventorySlot >= inventoryItems.Length)
+            return false;
+        if (handIndex < 0 || handIndex >= hands.Length)
+            return false;
+        if (inventoryItems[inventorySlot] != null)
+            return false;
+        itemz handItem = hands[handIndex];
+        hands[handIndex] = item;
+        inventoryItems[inventorySlot] = handItem;
+        Refresh();
+        return true;
+    }
     public bool HasFreeHand()
     {
         return hands[0] == null || hands[1] == null;
@@ -366,5 +383,112 @@ public class EasyInv : MonoBehaviour
         itemworld world = obj.GetComponent<itemworld>();
         if (world != null)
             world.item = item;
+    }
+    public int gettotalitemamount(int _itemid)
+    {
+        int _amount = 0;
+
+        for (int _i = 0; _i < hands.Length; _i++)
+        {
+            if (hands[_i] == null || hands[_i].definition == null)
+            {
+                continue;
+            }
+
+            if (hands[_i].definition.id == _itemid)
+            {
+                _amount += hands[_i].amount;
+            }
+        }
+
+        for (int _i = 0; _i < inventoryItems.Length; _i++)
+        {
+            if (inventoryItems[_i] == null || inventoryItems[_i].definition == null)
+            {
+                continue;
+            }
+
+            if (inventoryItems[_i].definition.id == _itemid)
+            {
+                _amount += inventoryItems[_i].amount;
+            }
+        }
+
+        return _amount;
+    }
+
+    public bool removeitemamount(int _itemid, int _amount)
+    {
+        if (_amount <= 0)
+        {
+            return true;
+        }
+
+        if (gettotalitemamount(_itemid) < _amount)
+        {
+            return false;
+        }
+
+        int _remaining = _amount;
+
+        for (int _i = 0; _i < hands.Length && _remaining > 0; _i++)
+        {
+            itemz _item = hands[_i];
+
+            if (_item == null || _item.definition == null)
+            {
+                continue;
+            }
+
+            if (_item.definition.id != _itemid)
+            {
+                continue;
+            }
+
+            int _take = Mathf.Min(
+            _item.amount,
+            _remaining
+            );
+
+            _item.amount -= _take;
+            _remaining -= _take;
+
+            if (_item.amount <= 0)
+            {
+                hands[_i] = null;
+            }
+        }
+
+        for (int _i = 0; _i < inventoryItems.Length && _remaining > 0; _i++)
+        {
+            itemz _item = inventoryItems[_i];
+
+            if (_item == null || _item.definition == null)
+            {
+                continue;
+            }
+
+            if (_item.definition.id != _itemid)
+            {
+                continue;
+            }
+
+            int _take = Mathf.Min(
+            _item.amount,
+            _remaining
+            );
+
+            _item.amount -= _take;
+            _remaining -= _take;
+
+            if (_item.amount <= 0)
+            {
+                inventoryItems[_i] = null;
+            }
+        }
+
+        Refresh();
+
+        return _remaining <= 0;
     }
 }

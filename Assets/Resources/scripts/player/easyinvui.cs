@@ -325,7 +325,12 @@ public class EasyInvUI : MonoBehaviour
             return false;
 
         if (slot.item != null)
+        {
+            if (sourceInventorySlot >= 0 &&
+                (slot.type == SlotType.LeftHand || slot.type == SlotType.RightHand))
+                return true;
             return false;
+        }
 
         switch (slot.type)
         {
@@ -428,24 +433,24 @@ public class EasyInvUI : MonoBehaviour
             return;
         }
 
-        if (targetSlot.type == SlotType.LeftHand)
+        if (targetSlot.type == SlotType.LeftHand || targetSlot.type == SlotType.RightHand)
         {
-            easyInv.ReturnItemToHand(0, draggedItem);
+            int targetHand = targetSlot.type == SlotType.LeftHand ? 0 : 1;
 
-            if (externalDragging)
+            if (sourceInventorySlot >= 0 && targetSlot.item != null)
             {
-                CompleteExternalDrag();
-                return;
+                if (!easyInv.SwapInventoryItemWithHand(sourceInventorySlot, targetHand, draggedItem))
+                {
+                    RestoreSource();
+                    StopDrag();
+                    Refresh();
+                    return;
+                }
             }
-
-            StopDrag();
-            Refresh();
-            return;
-        }
-
-        if (targetSlot.type == SlotType.RightHand)
-        {
-            easyInv.ReturnItemToHand(1, draggedItem);
+            else
+            {
+                easyInv.ReturnItemToHand(targetHand, draggedItem);
+            }
 
             if (externalDragging)
             {
