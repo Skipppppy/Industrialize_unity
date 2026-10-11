@@ -19,7 +19,7 @@ MonoBehaviour:
   _category: 2
   _prefab: {fileID: 3543365486360158487, guid: d052957ab137afd4b878ec79d95706cd, type: 3}
   _size: {x: 2, y: 2, z: 2}
-  _buildtime: 5
+  _buildtime: 1
   _cost:
   - _itemid: 1
     _amount: 1

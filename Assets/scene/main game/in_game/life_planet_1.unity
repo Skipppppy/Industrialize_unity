@@ -12269,17 +12269,19 @@ MonoBehaviour:
   _groundmask:
     serializedVersion: 2
     m_Bits: 8
-  _placementdistance: 8
-  _builddistance: 4
+  _placementdistance: 1000
+  _rayheight: 8
   _maxslopeangle: 8
-  _maxheightdifference: 0.2
-  _rayheight: 4
-  _rotation15: 15
-  _rotation1: 1
+  _maxheightdifference: 0.25
+  _positionsmooth: 25
+  _rotationsmooth: 25
+  _rotationstep: 15
   _bluecolor: {r: 0.1, g: 0.45, b: 1, a: 0.45}
   _validcolor: {r: 0.1, g: 1, b: 0.2, a: 0.45}
   _invalidcolor: {r: 1, g: 0.1, b: 0.1, a: 0.45}
-  _ghostmaterial: {fileID: 2100000, guid: 8dacbe9fe19f36549abf68d6fd0ed81c, type: 2}
+  _catalogsensitivity: 0.03
+  _neardysystem: {fileID: 3241015018494407823}
+  _builddistance: 20
 --- !u!114 &3241015018494407820 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8316747841671559159, guid: cd26d2cc6c62b0542a0209e840481eb6, type: 3}
@@ -12291,6 +12293,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825a9d9ba41603b489dd5badf20adc0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+--- !u!114 &3241015018494407823 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8552719872284852876, guid: cd26d2cc6c62b0542a0209e840481eb6, type: 3}
+  m_PrefabInstance: {fileID: 3241015018494407811}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3241015018494407815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 946c8ee8007fc6e4bab353332858a763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::neardysystem
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

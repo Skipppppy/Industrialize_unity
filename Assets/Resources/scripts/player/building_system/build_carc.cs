@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -5,9 +6,22 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class buildingcard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [Header("Preview")]
     [SerializeField] private RawImage _model;
-    [SerializeField] private Image _selectimage;
     [SerializeField] private float _rotationspeed = 60f;
+    [SerializeField] private float _previewlightintensity = 1f;
+    [SerializeField] private float _previewdistance = 8f;
+    [SerializeField] private float _previewfov = 30f;
+    [Header("Background Brightness")]
+    [SerializeField, Range(0f, 1f)] private float _backgroundunselectedbrightness = 0.5f;
+    [SerializeField, Range(0f, 1f)] private float _backgroundselectedbrightness = 0.75f;
+    [Header("Select Overlay Brightness")]
+    [SerializeField] private Image _selectimage;
+    [SerializeField, Range(0f, 1f)] private float _selectunselectedbrightness = 0.5f;
+    [SerializeField, Range(0f, 1f)] private float _selectselectedbrightness = 0.75f;
+    [SerializeField, Range(0f, 1f)] private float _selectunselectedalpha = 0f;
+    [SerializeField, Range(0f, 1f)] private float _selecthoveralpha = 0.15f;
+    [SerializeField, Range(0f, 1f)] private float _selectselectedalpha = 0.25f;
     private Image _background;
     private Button _button;
     private buildingdefinition _building;
@@ -20,43 +34,36 @@ public class buildingcard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private bool _selected;
     private bool _hovered;
     private int _previewlayer = 31;
-    private readonly Color _normalcolor = new Color(0.5f, 0.5f, 0.5f, 1f);
-    private readonly Color _selectedcolor = new Color(1f, 1f, 1f, 1f);
     private void Awake()
     {
         _background = GetComponent<Image>();
         _button = GetComponent<Button>();
         _background.enabled = true;
         _background.raycastTarget = true;
-        _background.color = _normalcolor;
         _button.targetGraphic = _background;
         _button.transition = Selectable.Transition.None;
-        _button.onClick.RemoveAllListeners();
+        _button.onClick.RemoveListener(oncardclick);
         _button.onClick.AddListener(oncardclick);
         if (_model == null)
         {
-            Transform _modeltransform = transform.Find("model");
+            Transform _modeltransform = findchild(transform, "model");
             if (_modeltransform != null)
                 _model = _modeltransform.GetComponent<RawImage>();
+        }
+        if (_selectimage == null)
+        {
+            Transform _selecttransform = findchild(transform, "select");
+            if (_selecttransform != null)
+                _selectimage = _selecttransform.GetComponent<Image>();
         }
         if (_model != null)
         {
             _model.raycastTarget = false;
             _model.color = Color.white;
         }
-        if (_selectimage == null)
-        {
-            Transform _selecttransform = transform.Find("select");
-            if (_selecttransform != null)
-                _selectimage = _selecttransform.GetComponent<Image>();
-        }
         if (_selectimage != null)
-        {
             _selectimage.raycastTarget = false;
-            Color _color = _selectimage.color;
-            _color.a = 0f;
-            _selectimage.color = _color;
-        }
+        updatelook();
     }
     public void initialize(buildingdefinition _buildingdefinition, buildingmanager _buildingmanager)
     {
@@ -64,20 +71,18 @@ public class buildingcard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _manager = _buildingmanager;
         _selected = false;
         _hovered = false;
-        if (_background != null)
-        {
-            _background.enabled = true;
-            _background.raycastTarget = true;
-            _background.color = _normalcolor;
-        }
-        if (_selectimage != null)
-        {
-            Color _color = _selectimage.color;
-            _color.a = 0f;
-            _selectimage.color = _color;
-        }
         createpreview();
         updatelook();
+    }
+    private Transform findchild(Transform _root, string _name)
+    {
+        Transform[] _children = _root.GetComponentsInChildren<Transform>(true);
+        for (int _i = 0; _i < _children.Length; _i++)
+        {
+            if (string.Equals(_children[_i].name, _name, System.StringComparison.OrdinalIgnoreCase))
+                return _children[_i];
+        }
+        return null;
     }
     private void createpreview()
     {
@@ -107,12 +112,12 @@ public class buildingcard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _size = Mathf.Max(_size, 0.1f);
         _previewcamera = new GameObject("building_card_camera").AddComponent<Camera>();
         _previewcamera.transform.SetParent(_previewroot.transform, false);
-        _previewcamera.transform.localPosition = new Vector3(0f, 0f, -_size * 8f);
+        _previewcamera.transform.localPosition = new Vector3(0f, 0f, -_size * _previewdistance);
         _previewcamera.transform.LookAt(_previewroot.transform.position);
         _previewcamera.clearFlags = CameraClearFlags.SolidColor;
         _previewcamera.backgroundColor = new Color(0f, 0f, 0f, 0f);
         _previewcamera.cullingMask = 1 << _previewlayer;
-        _previewcamera.fieldOfView = 30f;
+        _previewcamera.fieldOfView = _previewfov;
         _previewcamera.nearClipPlane = 0.01f;
         _previewcamera.farClipPlane = Mathf.Max(100f, _size * 30f);
         _previewcamera.allowHDR = false;
@@ -120,9 +125,9 @@ public class buildingcard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _previewlight = new GameObject("building_card_light").AddComponent<Light>();
         _previewlight.transform.SetParent(_previewroot.transform, false);
         _previewlight.type = LightType.Point;
-        _previewlight.intensity = 4f;
-        _previewlight.range = Mathf.Max(10f, _size * 10f);
-        _previewlight.transform.localPosition = new Vector3(_size * 2f, _size * 2f, -_size * 2f);
+        _previewlight.intensity = _previewlightintensity;
+        _previewlight.range = Mathf.Max(10f, _size * 8f);
+        _previewlight.transform.localPosition = new Vector3(2f, 2f, -2f);
         _rendertexture = new RenderTexture(256, 256, 16, RenderTextureFormat.ARGB32);
         _rendertexture.Create();
         _previewcamera.targetTexture = _rendertexture;
@@ -159,8 +164,9 @@ public class buildingcard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
     private void Update()
     {
-        if (_previewmodel != null)
-            _previewmodel.transform.Rotate(Vector3.up, _rotationspeed * Time.unscaledDeltaTime, Space.World);
+        if (!_selected || _previewmodel == null)
+            return;
+        _previewmodel.transform.Rotate(Vector3.up, _rotationspeed * Time.unscaledDeltaTime, Space.World);
     }
     private void oncardclick()
     {
@@ -183,17 +189,24 @@ public class buildingcard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         _selected = _value;
         if (_selectimage != null)
         {
-            Color _color = _selectimage.color;
-            _color.a = _selected ? 1f : 0f;
-            _selectimage.color = _color;
+            _selectimage.gameObject.SetActive(true);
         }
         updatelook();
     }
     private void updatelook()
     {
-        if (_background == null)
-            return;
-        _background.color = _selected || _hovered ? _selectedcolor : _normalcolor;
+        bool _highlighted = _selected || _hovered;
+        if (_background != null)
+        {
+            float _brightness = _highlighted ? _backgroundselectedbrightness : _backgroundunselectedbrightness;
+            _background.color = new Color(_brightness, _brightness, _brightness, 1f);
+        }
+        if (_selectimage != null)
+        {
+            float _brightness = _highlighted ? _selectselectedbrightness : _selectunselectedbrightness;
+            float _alpha = _selected ? _selectselectedalpha : _hovered ? _selecthoveralpha : _selectunselectedalpha;
+            _selectimage.color = new Color(_brightness, _brightness, _brightness, _alpha);
+        }
     }
     public buildingdefinition getbuilding()
     {

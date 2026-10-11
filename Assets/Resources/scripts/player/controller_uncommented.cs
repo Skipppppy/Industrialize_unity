@@ -394,18 +394,4 @@ public class PlayerController : MonoBehaviour
         QueryTriggerInteraction.Ignore
         );
     }
-    public void setbuildinguimode(bool _value)
-    {
-        _buildingUIMode = _value;
-        if (_value)
-        {
-            currentmove = Vector3.zero;
-            movevelocity = Vector3.zero;
-            currentSpeed = 0f;
-        }
-    }
-    public bool isbuildinguimode()
-    {
-        return _buildingUIMode;
-    }
 }
