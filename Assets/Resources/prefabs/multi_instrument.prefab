@@ -143,9 +143,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &2321949596940775646
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -201,8 +201,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::sphericalgravitybody
   _planet: {fileID: 8084392173960289276, guid: 779035a4babe7474cb9fa62b7293373a, type: 3}
-  _groundmask:
-    serializedVersion: 2
-    m_Bits: 8
+  _gravitystrength: 10
   _zerogravity: 0
-  _grounddamping: 1

@@ -93,6 +93,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d7db34e5a9dbad4d84774db92bbbcf6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5124887425688925147}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d7db34e5a9dbad4d84774db92bbbcf6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4272088364030492083}
   m_SourcePrefab: {fileID: 100100000, guid: 7d7db34e5a9dbad4d84774db92bbbcf6, type: 3}
 --- !u!1 &3524499201545456065 stripped
 GameObject:
@@ -144,9 +147,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &5124887425688925147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,3 +164,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::itemworld
   definition: {fileID: 11400000, guid: 3abb37e3437de13409519bd5de118d8d, type: 2}
   tags: 
+--- !u!114 &4272088364030492083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3524499201545456065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a18041e15041ecf44bd0228c757d1cb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::sphericalgravitybody
+  _planet: {fileID: 8084392173960289276, guid: 779035a4babe7474cb9fa62b7293373a, type: 3}
+  _gravitystrength: 10
+  _zerogravity: 0

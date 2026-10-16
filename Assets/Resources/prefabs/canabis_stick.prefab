@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8584534362110421013}
   - component: {fileID: 2764880999938446490}
   - component: {fileID: 3741520058705585027}
+  - component: {fileID: -1068870418939920811}
   m_Layer: 7
   m_Name: canabis_stick
   m_TagString: Item
@@ -155,3 +156,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::itemworld
   definition: {fileID: 11400000, guid: a90f3b618a5dbac42ac08d7057f826c6, type: 2}
   tags: 
+--- !u!114 &-1068870418939920811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175567834399968521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a18041e15041ecf44bd0228c757d1cb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::sphericalgravitybody
+  _planet: {fileID: 8084392173960289276, guid: 779035a4babe7474cb9fa62b7293373a, type: 3}
+  _gravitystrength: 10
+  _zerogravity: 0

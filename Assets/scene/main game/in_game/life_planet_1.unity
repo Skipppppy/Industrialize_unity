@@ -12282,6 +12282,13 @@ MonoBehaviour:
   _catalogsensitivity: 0.03
   _neardysystem: {fileID: 3241015018494407823}
   _builddistance: 20
+  _showrequirements: 1
+  _requirementswidth: 360
+  _requirementsmargin: 12
+  _requirementsrefreshinterval: 0.25
+  _debugconstruction: 0
+  _showconstructiondebughud: 0
+  _debugloginterval: 0.5
 --- !u!114 &3241015018494407820 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8316747841671559159, guid: cd26d2cc6c62b0542a0209e840481eb6, type: 3}
